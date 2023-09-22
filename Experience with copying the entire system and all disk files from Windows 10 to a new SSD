@@ -1,0 +1,26 @@
+Due to my laptop’s disk being only 250GB, which I have used for many years, Disk C is soon to be full. When I run Windows 10 and other programs, it runs very slowly, affecting my work and driving me crazy. Therefore, I decided to buy a 1TB SSD disk to replace the old one.
+The tools I have used are:
+
+A 1TB move disk (with enough space to store your old system and all disk files)
+Dabaicai WinPE system (I used it to make a WinPE boot system: [Dabaicai])
+A 16GB U disk
+A 64GB flash disk
+
+[Phase One] These are the steps I have taken:
+I used Windows 10’s built-in backup to back up the entire system and disk files to the move disk. After completion, all files were in a folder named “WindowsImageBackup”.
+As Windows 10’s built-in [create a recovery drive] didn’t work for me, I downloaded the Windows Media Creation Tool ([Link]) and used it to create a recovery drive.
+I shut down the system, installed the new SSD on my laptop, then started up and inserted the flash disk created in step 2. I pressed F8 to set up the BIOS boot order from the flash disk first.
+Using the flash disk created in step 2, I entered the Windows 10 recovery interface. I inserted the move disk and on the Windows 10 recovery interface chose Troubleshoot > System Image Recovery > it automatically detected the WindowsImageBackup files. I just clicked the next button and chose the right options. But finally, it failed in recovery with Error code: 0x80042414.
+I tried to find a solution for Error code: 0x80042414 but it didn’t work for me. So next, I moved on to Phase Two to resolve the problem.
+
+[Phase Two] These steps worked well for my laptop:
+I removed the new SSD and reinstalled the old SSD back into the laptop, downloaded Dabaicai setup, and made a U disk WinPE system boot.
+I shut down the system and reinstalled the new SSD.
+In BIOS setup, I booted from U disk. After entering Dabaicai WinPE System interface, I right-clicked on My Computer, chose Manage, entered Computer Management interface chose > Storage > Disk Management, on the menu bar action option chose Attach VHD (Virtual Hard Disk).
+I inserted Move Disk and attached all VHD files that were created before. Then opened DiskGenis on Dabaicai WinPe desktop where it displayed new SSD storage and mounted VHD.
+On DiskGenis, I formatted the new SSD and partitioned it like my old SSD.
+I chose the partitioned disk and right-clicked to choose clone partition. After choosing the right source disk and target disk for cloning, all disk files were cloned.
+After removing all attached U disks and disks, I restarted the system which then displayed a blue screen with Error code: 0xc00000e.
+After searching Google again, I entered WinPE system again on desktop chose System Boot Repair. After completion, I removed all removable devices such as U disk, Move disk then restarted system.
+The blue screen appeared again with Error code: 0x00000001.
+Pressing F8 allowed me to enter Windows 10 safe mode where I uninstalled programs with recent dates of installation then restarted my laptop which worked well as it displayed picture and pincode interface again.
